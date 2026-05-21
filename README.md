@@ -32,7 +32,7 @@ This is a static reservation widget for GitHub Pages and Blogger. It shows a mon
 9. Deploy and copy the Web app URL.
 10. Open `script.js` and paste that URL into `apiUrl`.
 11. Google may ask you to authorize email permissions the first time the script is deployed or tested.
-12. In `apps-script.js`, change `ADMIN_PASSWORD` from `change-this-password` to the password you want to use.
+12. In `apps-script.js`, change `ADMIN_PASSWORD_FALLBACK` from `change-this-password` to the password you want to use.
 
 Example:
 

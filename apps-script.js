@@ -1,6 +1,7 @@
 const SHEET_NAME = "Reservations";
 const NOTIFICATION_EMAIL = "greggsmillgraniteville@gmail.com";
-const ADMIN_PASSWORD = "hoapool2026admin@";
+const ADMIN_PASSWORD_PROPERTY = "ADMIN_PASSWORD";
+const ADMIN_PASSWORD_FALLBACK = "change-this-password";
 const SPREADSHEET_ID = "";
 
 function doGet(e) {
@@ -56,7 +57,7 @@ function reserve(payload) {
 
   const sheet = getSheet();
   const rows = sheet.getDataRange().getValues();
-  const existing = rows.slice(1).find((row) => row[0] === payload.date);
+  const existing = rows.slice(1).find((row) => normalizeDate(row[0]) === payload.date);
   if (existing) {
     return json({ ok: false, error: "This day has already been reserved." });
   }
@@ -88,7 +89,7 @@ function cancelReservation(date) {
 
   const sheet = getSheet();
   const rows = sheet.getDataRange().getValues();
-  const rowIndex = rows.findIndex((row, index) => index > 0 && row[0] === date);
+  const rowIndex = rows.findIndex((row, index) => index > 0 && normalizeDate(row[0]) === date);
 
   if (rowIndex === -1) {
     return json({ ok: false, error: "Reservation was not found." });
@@ -103,9 +104,9 @@ function getReservations(month) {
   const rows = sheet.getDataRange().getValues();
   return rows
     .slice(1)
-    .filter((row) => !month || String(row[0]).indexOf(month) === 0)
+    .filter((row) => !month || normalizeDate(row[0]).indexOf(month) === 0)
     .map((row) => ({
-      date: String(row[0]),
+      date: normalizeDate(row[0]),
       timeSlot: String(row[1]),
       name: String(row[2]),
       contact: String(row[3]),
@@ -176,9 +177,35 @@ function sendReservationEmail(payload) {
 }
 
 function requireAdmin(password) {
-  if (String(password || "") !== ADMIN_PASSWORD) {
+  if (String(password || "") !== getAdminPassword()) {
     throw new Error("Invalid admin password.");
   }
+}
+
+function getAdminPassword() {
+  return PropertiesService.getScriptProperties().getProperty(ADMIN_PASSWORD_PROPERTY) || ADMIN_PASSWORD_FALLBACK;
+}
+
+function setAdminPassword() {
+  PropertiesService.getScriptProperties().setProperty(ADMIN_PASSWORD_PROPERTY, "change-this-password");
+}
+
+function normalizeDate(value) {
+  if (value instanceof Date && !isNaN(value.getTime())) {
+    return Utilities.formatDate(value, Session.getScriptTimeZone(), "yyyy-MM-dd");
+  }
+
+  const text = String(value || "").trim();
+  if (/^\d{4}-\d{2}-\d{2}/.test(text)) {
+    return text.slice(0, 10);
+  }
+
+  const parsed = new Date(text);
+  if (!isNaN(parsed.getTime())) {
+    return Utilities.formatDate(parsed, Session.getScriptTimeZone(), "yyyy-MM-dd");
+  }
+
+  return text;
 }
 
 function getSheet() {

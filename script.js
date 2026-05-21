@@ -330,9 +330,19 @@
         const all = JSON.parse(localStorage.getItem("poolReservations") || "[]");
         localStorage.setItem("poolReservations", JSON.stringify(all.filter((item) => item.date !== date)));
       }
+
+      state.reservations.delete(date);
+      state.adminReservations = state.adminReservations.filter((item) => item.date !== date);
+      renderCalendar();
+      renderAdminReservations();
       setAdminMessage("Reservation cancelled. The day is available again.", "success");
-      await loadReservations();
-      await loadAdminReservations();
+
+      try {
+        await loadReservations();
+        await loadAdminReservations();
+      } catch (refreshError) {
+        setAdminMessage("Reservation cancelled. Refresh the page if the list does not update.", "success");
+      }
     } catch (error) {
       setAdminMessage(error.message || "Could not cancel reservation.", "error");
     }

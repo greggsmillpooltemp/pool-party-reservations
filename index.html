@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pool Party Reservations</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Pool reservations</p>
+          <h1 id="page-title">Book a 2-hour pool party</h1>
+          <p class="intro">
+            One party may reserve the pool each day. Parties include up to 2 tables and a fixed
+            2-hour time slot.
+          </p>
+        </div>
+        <div class="hours-panel" aria-label="Pool hours">
+          <h2>Pool Hours</h2>
+          <dl>
+            <div>
+              <dt>Sunday-Thursday</dt>
+              <dd>7:00 AM-9:00 PM</dd>
+            </div>
+            <div>
+              <dt>Friday-Saturday</dt>
+              <dd>7:00 AM-10:00 PM</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="booking-layout">
+        <div class="calendar-panel" aria-labelledby="calendar-heading">
+          <div class="panel-header">
+            <div>
+              <p class="section-kicker">Availability</p>
+              <h2 id="calendar-heading">Choose a date</h2>
+            </div>
+            <div class="month-controls">
+              <button type="button" class="icon-button" id="prevMonth" aria-label="Previous month">
+                <span aria-hidden="true">‹</span>
+              </button>
+              <strong id="monthLabel"></strong>
+              <button type="button" class="icon-button" id="nextMonth" aria-label="Next month">
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="legend" aria-label="Calendar legend">
+            <span><i class="dot available"></i>Available</span>
+            <span><i class="dot booked"></i>Booked</span>
+            <span><i class="dot closed"></i>Past</span>
+          </div>
+
+          <div class="weekday-row" aria-hidden="true">
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid" aria-live="polite"></div>
+        </div>
+
+        <aside class="reserve-panel" aria-labelledby="reservation-heading">
+          <div class="panel-header compact">
+            <div>
+              <p class="section-kicker">Reservation</p>
+              <h2 id="reservation-heading">Party details</h2>
+            </div>
+            <button type="button" class="text-button" id="refreshButton">Refresh</button>
+          </div>
+
+          <div class="selected-date" id="selectedDateText">Select an available day.</div>
+
+          <form id="reservationForm">
+            <label>
+              Name
+              <input id="guestName" name="name" autocomplete="name" required />
+            </label>
+
+            <label>
+              Phone or email
+              <input id="contact" name="contact" autocomplete="email" required />
+            </label>
+
+            <label>
+              Address
+              <input id="address" name="address" autocomplete="street-address" required />
+            </label>
+
+            <label>
+              Time slot
+              <select id="timeSlot" name="timeSlot" required disabled>
+                <option value="">Choose a date first</option>
+              </select>
+            </label>
+
+            <div class="rule-box" role="note">
+              <strong>Reservation rules</strong>
+              <span>2 hours only</span>
+              <span>2 tables only</span>
+              <span>1 party per day</span>
+            </div>
+
+            <button type="submit" class="primary-button" id="submitButton" disabled>
+              Reserve this party
+            </button>
+            <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+          </form>
+        </aside>
+      </section>
+
+      <section class="admin-panel" aria-labelledby="admin-heading">
+        <div class="panel-header compact">
+          <div>
+            <p class="section-kicker">Admin</p>
+            <h2 id="admin-heading">Manage cancellations</h2>
+          </div>
+          <button type="button" class="text-button" id="adminRefreshButton" disabled>Refresh admin list</button>
+        </div>
+
+        <form class="admin-login" id="adminLoginForm">
+          <label>
+            Admin password
+            <input id="adminPassword" name="adminPassword" type="password" autocomplete="current-password" />
+          </label>
+          <button type="submit" class="primary-button">Login</button>
+        </form>
+
+        <div class="admin-list" id="adminList" aria-live="polite">
+          Admin reservations will appear here after login.
+        </div>
+        <p class="form-message" id="adminMessage" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 (function () {
   const CONFIG = {
     // Paste your deployed Google Apps Script web app URL here.
-    apiUrl: "",
+    apiUrl: "https://script.google.com/macros/s/AKfycbwI83wWZKNRLswiSct9XI7xG3PwibPS7mTNnfIyIzV0ThFBcYfg6IiuTt15yAOlOBJfOQ/exec",
     timeZone: "America/New_York",
   };
 

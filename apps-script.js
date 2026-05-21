@@ -1,6 +1,7 @@
 const SHEET_NAME = "Reservations";
 const NOTIFICATION_EMAIL = "greggsmillgraniteville@gmail.com";
 const ADMIN_PASSWORD = "hoapool2026admin@";
+const SPREADSHEET_ID = "";
 
 function doGet(e) {
   try {
@@ -181,7 +182,9 @@ function requireAdmin(password) {
 }
 
 function getSheet() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const spreadsheet = SPREADSHEET_ID
+    ? SpreadsheetApp.openById(SPREADSHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
   if (!sheet) {

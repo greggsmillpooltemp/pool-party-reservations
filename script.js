@@ -187,10 +187,10 @@
     const day = date.getDay();
     const closeHour = day === 5 || day === 6 ? 22 : 21;
     const slots = [];
-    for (let hour = 7; hour <= closeHour - 2; hour += 1) {
+    for (let hour = 7; hour <= closeHour - 3; hour += 1) {
       slots.push({
-        value: `${pad(hour)}:00-${pad(hour + 2)}:00`,
-        label: `${formatHour(hour)}-${formatHour(hour + 2)}`,
+        value: `${pad(hour)}:00-${pad(hour + 3)}:00`,
+        label: `${formatHour(hour)}-${formatHour(hour + 3)}`,
       });
     }
     return slots;
@@ -207,7 +207,7 @@
       contact: els.contact.value.trim(),
       address: els.address.value.trim(),
       tables: 2,
-      hours: 2,
+      hours: 3,
     };
 
     if (!reservation.name || !reservation.contact || !reservation.address || !reservation.timeSlot) {

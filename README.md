@@ -1,12 +1,12 @@
 # Pool Party Reservation Calendar
 
-This is a static reservation widget for GitHub Pages and Blogger. It shows a monthly calendar, marks booked days, and lets a family reserve one 2-hour party slot with 2 tables.
+This is a static reservation widget for GitHub Pages and Blogger. It shows a monthly calendar, marks booked days, and lets a family reserve one 3-hour party slot with 2 tables.
 
 ## Rules Built In
 
 - Pool hours are Sunday-Thursday 7:00 AM-9:00 PM.
 - Pool hours are Friday-Saturday 7:00 AM-10:00 PM.
-- Reservations are exactly 2 hours.
+- Reservations are exactly 3 hours.
 - Reservations include exactly 2 tables.
 - Only 1 party can reserve the pool per day.
 - Past dates cannot be selected.

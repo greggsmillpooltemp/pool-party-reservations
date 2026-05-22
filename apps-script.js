@@ -69,7 +69,7 @@ function reserve(payload) {
     payload.contact,
     payload.address,
     2,
-    2,
+    3,
     new Date(),
   ]);
 
@@ -112,7 +112,7 @@ function getReservations(month) {
       contact: String(row[3]),
       address: String(row[4] || ""),
       tables: Number(row[5] || 2),
-      hours: Number(row[6] || 2),
+      hours: Number(row[6] || 3),
       createdAt: row[7] ? new Date(row[7]).toISOString() : "",
     }));
 }
@@ -126,7 +126,7 @@ function validatePayload(payload) {
   }
 
   if (!timePattern.test(payload.timeSlot || "")) {
-    throw new Error("A valid 2-hour time slot is required.");
+    throw new Error("A valid 3-hour time slot is required.");
   }
 
   if (!String(payload.name || "").trim()) {
@@ -143,8 +143,8 @@ function validatePayload(payload) {
 
   const startHour = Number(payload.timeSlot.slice(0, 2));
   const endHour = Number(payload.timeSlot.slice(6, 8));
-  if (endHour - startHour !== 2) {
-    throw new Error("Reservations must be exactly 2 hours.");
+  if (endHour - startHour !== 3) {
+    throw new Error("Reservations must be exactly 3 hours.");
   }
 
   const day = new Date(payload.date + "T12:00:00").getDay();
@@ -165,7 +165,7 @@ function sendReservationEmail(payload) {
     "Phone or email: " + payload.contact,
     "Address: " + payload.address,
     "Tables: 2",
-    "Hours: 2",
+    "Hours: 3",
   ].join("\n");
 
   try {

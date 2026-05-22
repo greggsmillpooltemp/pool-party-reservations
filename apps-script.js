@@ -1,7 +1,7 @@
 const SHEET_NAME = "Reservations";
 const NOTIFICATION_EMAIL = "greggsmillgraniteville@gmail.com";
-const ADMIN_PASSWORD_PROPERTY = "hoapool2026admin@";
-const ADMIN_PASSWORD_FALLBACK = "change-this-password";
+const ADMIN_PASSWORD_PROPERTY = "ADMIN_PASSWORD";
+const ADMIN_PASSWORD_FALLBACK = "";
 const SPREADSHEET_ID = "1K4dF4Z0lmuijs7XtDjtF-oOQVX8kLkDPqnwKzWghv2Q";
 
 function doGet(e) {
@@ -184,10 +184,6 @@ function requireAdmin(password) {
 
 function getAdminPassword() {
   return PropertiesService.getScriptProperties().getProperty(ADMIN_PASSWORD_PROPERTY) || ADMIN_PASSWORD_FALLBACK;
-}
-
-function setAdminPassword() {
-  PropertiesService.getScriptProperties().setProperty(ADMIN_PASSWORD_PROPERTY, "change-this-password");
 }
 
 function normalizeDate(value) {
